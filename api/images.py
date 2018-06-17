@@ -4,6 +4,7 @@ import uuid
 import mimetypes
 import json
 import falcon
+import codecs
 from urllib import request
 import detector
 
@@ -24,7 +25,8 @@ class Resource(object):
 
         if req.content_type == 'application/json':
             # Fetch URL
-            body = json.load(req.stream)
+            reader = codecs.getreader('utf-8')
+            body = json.load(reader(req.stream))
             # assuming jpg but we should detect the right thing
             # from the content-type coming back from urllib
             try:
