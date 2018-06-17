@@ -3,7 +3,7 @@ apiVersion: v1
 metadata:
   name: yololens
   labels:
-    app: api
+    app: yololens
 spec:
   containers:
     - name: yololens

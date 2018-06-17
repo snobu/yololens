@@ -4,9 +4,9 @@ import uuid
 import mimetypes
 import json
 import falcon
-import codecs
 from urllib import request
 import detector
+import codecs
 
 class Resource(object):
 
@@ -29,18 +29,10 @@ class Resource(object):
             body = json.load(reader(req.stream))
             # assuming jpg but we should detect the right thing
             # from the content-type coming back from urllib
+            image_path = os.path.join(self._upload_path, str(session_id) + '.jpg')
             try:
-                fetch_image_response = request.urlopen(body['url']).read()
-                ct = fetch_image_response.info().get_content_type()
-                ext = mimetypes.guess_extension(ct, strict=True)
-                print("=====")
-                print(c)
-                print(ext)
-                print("=====")
-                image_path = os.path.join(self._upload_path, str(session_id) + '.jpg')
                 with io.open(image_path, 'wb') as image_file:
-                    image_file.write(fetch_image_response.read())
-                    
+                    image_file.write(request.urlopen(body['url']).read())
             except Exception as e:
                 print(e)
                 resp.status = falcon.HTTP_400
