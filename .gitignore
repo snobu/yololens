@@ -1,0 +1,8 @@
+.DS_Store
+*.weights
+*.so
+*.pyc
+__pycache__
+results
+uploads
+falcon

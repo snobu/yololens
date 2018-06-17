@@ -1,0 +1,35 @@
+1,2c1,2
+< GPU=0
+< CUDNN=0
+---
+> GPU=1
+> CUDNN=1
+4c4
+< OPENMP=0
+---
+> OPENMP=1
+76c76,77
+< 	$(CC) $(COMMON) $(CFLAGS) $^ -o $@ $(LDFLAGS) $(ALIB)
+---
+> 	@$(CC) $(COMMON) $(CFLAGS) $^ -o $@ $(LDFLAGS) $(ALIB)
+> 	@echo "Compiling $<"
+79c80,81
+< 	$(AR) $(ARFLAGS) $@ $^
+---
+> 	@$(AR) $(ARFLAGS) $@ $^
+> 	@echo "Compiling $<"
+82c84,85
+< 	$(CC) $(CFLAGS) -shared $^ -o $@ $(LDFLAGS)
+---
+> 	@$(CC) $(CFLAGS) -shared $^ -o $@ $(LDFLAGS)
+> 	@echo "Compiling $<"
+85c88,89
+< 	$(CC) $(COMMON) $(CFLAGS) -c $< -o $@
+---
+> 	@$(CC) $(COMMON) $(CFLAGS) -c $< -o $@
+> 	@echo "Compiling $<"
+88c92,93
+< 	$(NVCC) $(ARCH) $(COMMON) --compiler-options "$(CFLAGS)" -c $< -o $@
+---
+> 	@$(NVCC) $(ARCH) $(COMMON) --compiler-options "$(CFLAGS)" -c $< -o $@
+> 	@echo "Compiling $<"

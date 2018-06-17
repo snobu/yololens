@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+
+<html>
+<link href="https://fonts.googleapis.com/css?family=Lato:300,600,900" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<div id="app">
+  <aside>
+    <h1 class="nobottom">YoloLens</h1>
+    <hr>
+    <div v-if="!image">
+      <h2 class="nomargin">Select an image:
+        <input type="file" name="file" id="file" class="inputfile" @change="fileUpload" />
+        <label for="file">+</label>
+      </h2>
+      <p class="useone" @click="useMine">or use one of mine</p>
+    </div>
+    <div v-else>
+      <img :src="image" />
+    </div>
+
+    <section v-if="image && !noResponse">
+      <div v-if="Object.keys(this.thing).length !== 0">
+        <h3 class="nomobile">Results are in.</h3>
+        <pre v-for="(value, key) in predictions">{{ key }}: {{ value }}</pre>
+      </div>
+      <div v-else>
+        <div id="loading">
+          <pacman-loader></pacman-loader>
+          <div class="loading-typeface" :color="spinnerColor">
+          LOADING
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <section v-if="noResponse">
+      <p>No response!</p>
+      <button @click="removeImage">Try again!</button>
+    </section>
+
+ </aside>
+
+ <!-- render detection result -->
+ <main>
+   <div id="canvas" v-for="t in thing">
+     <img v-bind:src="t" style="width: 500px" />
+   </div>
+ </main>
+
+</div>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.15.3/axios.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/vue-spinner@1.0.3/dist/vue-spinner.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.3/vue.js'></script>
+<script src='app.js'></script>
+
+</html>
