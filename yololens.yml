@@ -1,0 +1,36 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: yololens
+  labels:
+    app: api
+spec:
+  containers:
+    - name: yololens
+      image: adcaline/yololens
+      ports:
+        - containerPort: 8000
+      volumeMounts:
+        - name: nvidia
+          mountPath: /usr/local/nvidia
+      resources:
+        limits:
+          alpha.kubernetes.io/nvidia-gpu: 1
+  volumes:
+    - name: nvidia
+      hostPath:
+        path: /usr/local/nvidia
+  restartPolicy: OnFailure
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: yololens
+spec:
+  type: LoadBalancer
+  selector:
+    app: yololens
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
