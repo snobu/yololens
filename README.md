@@ -11,4 +11,5 @@
 
 Docker Hub: https://hub.docker.com/r/adcaline/yololens/
 
-Builds with GPU support (CUDA 9.2, Tesla M60 and higher).
+Builds with GPU support (CUDA 8.0, Tesla M60 and higher, could work on K80 as well).
+GPU nodes in AKS can't yet do CUDA 9.0+ (stale/stable? drivers).
