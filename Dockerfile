@@ -1,4 +1,3 @@
-#FROM nvidia/cuda:9.2-cudnn7-devel-ubuntu16.04
 FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04
 
 RUN apt-get update && \
@@ -18,8 +17,7 @@ COPY Makefile.patch /app/
 RUN git clone --depth 1 https://github.com/pjreddie/darknet
 WORKDIR darknet
 RUN patch -p1 Makefile < /app/Makefile.patch
-
-RUN  make && \
+RUN make && \
     echo '______ libdarknet ______' && \
     echo 'ldd: ' && \
     du -sh libdarknet.so && \
