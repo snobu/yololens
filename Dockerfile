@@ -29,7 +29,7 @@ RUN pip3 install setuptools colorama simplejson gunicorn
 
 RUN git clone --depth 1 https://github.com/snobu/falcon
 WORKDIR falcon
-RUN python3 setup.py install
+RUN python3 -m easy_install .
 
 RUN echo Downloading weights.. && curl -s -o /app/api/libdarknet/yolov3.weights \
     http://yololens.blob.core.windows.net/weights/yolov3.weights
