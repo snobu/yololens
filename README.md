@@ -2,7 +2,7 @@
 
 ## A Python wrapper over Darknet Yolo v3
 
-![screenshot](screenshot.png)
+![screenshot](https://raw.githubusercontent.com/snobu/yololens/master/screenshot.png)
 
 * Frontend lovingly stolen from Sarah Drasner (https://codepen.io/sdras/pen/dZOdpv), [object File] bug included.
 * Code contributions into frontend by [Radu Matei](https://github.com/radu-matei).
