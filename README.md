@@ -2,7 +2,7 @@
 
 ## A Python wrapper over Darknet Yolo v3
 
-![build status](https://niccokunzmann.github.io/dockerhub-build-status-image/status.svg?organization=adcaline&repository=yololens&text=moby)
+![build status](https://dockerbuildbadges.quelltext.eu/status.svg?organization=adcaline&repository=yololens&text=moby)
 
 ![screenshot](https://raw.githubusercontent.com/snobu/yololens/master/screenshot.png)
 
