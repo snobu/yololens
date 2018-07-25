@@ -2,6 +2,8 @@
 
 ## A Python wrapper over Darknet Yolo v3
 
+![build status](https://niccokunzmann.github.io/dockerhub-build-status-image/status.svg?organization=adcaline&repository=yololens&text=moby)
+
 ![screenshot](https://raw.githubusercontent.com/snobu/yololens/master/screenshot.png)
 
 * Frontend lovingly stolen from Sarah Drasner (https://codepen.io/sdras/pen/dZOdpv), [object File] bug included.
