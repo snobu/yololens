@@ -6,3 +6,4 @@ __pycache__
 results
 uploads
 falcon
+.pytest_cache
