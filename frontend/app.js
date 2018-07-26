@@ -1,5 +1,5 @@
 let PacmanLoader = VueSpinner.PacmanLoader;
-let postUrl = '/images';
+let postUrl = '/api/images';
 
 Vue.component("child", {
   props: {
