@@ -28,7 +28,8 @@ new Vue({
       thing: {},
       predictions: {},
       image: "",
-      noResponse: false
+      noResponse: false,
+      apiError: {}
     };
   },
 
@@ -65,6 +66,8 @@ new Vue({
           console.log('response.headers.location = ', response.headers.location);
           console.log('response.status = ', response.status, response.statusText);
         }
+      }).catch(function (error) {
+        _this.apiError = error;
       });
     },
     

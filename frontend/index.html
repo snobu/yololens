@@ -39,6 +39,10 @@
       <button @click="removeImage">Try again!</button>
     </section>
 
+    <section id="apiError" v-for="e in apiError">
+      <p style="color: red">{{ e }}</p>
+    </section>
+
  </aside>
 
  <!-- render detection result -->
