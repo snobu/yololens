@@ -1,3 +1,4 @@
+secrets.yml
 .vscode
 .DS_Store
 *.weights
