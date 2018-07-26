@@ -1,8 +1,7 @@
 FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04
 
-RUN apt-get update && \
-    apt-get install -y python3 python3-pip python3-dev curl git nginx && \
-    pip3 install --upgrade pip && \
+RUN apt update && \
+    apt install -y python3 python3-pip python3-dev curl git nginx && \
     pip3 install setuptools colorama simplejson falcon gunicorn
 
 RUN mkdir -p /app
