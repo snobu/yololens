@@ -29,6 +29,6 @@ RUN patch -p1 Makefile < /app/Makefile.patch && \
     cp -v libdarknet.so /app/api/libdarknet/
 
 WORKDIR /app/api
-CMD /app/bootstrap.sh
+ENTRYPOINT ["/bin/sh", "/app/bootstrap.sh"]
 
 EXPOSE 80

@@ -6,11 +6,11 @@ RUN mkdir -p /app/frontend/results /app/frontend/uploads
 RUN apt-get update && \
     apt-get install -y python3-dev git nginx
 
-RUN pip install --upgrade pip && \
-    pip install setuptools colorama simplejson gunicorn
+RUN pip install setuptools colorama simplejson falcon gunicorn
 
-ADD http://yololens.blob.core.windows.net/weights/yolov3.weights \
-    /app/api/libdarknet/yolov3.weights
+### ADD http://yololens.blob.core.windows.net/weights/yolov3.weights \
+###    /app/api/libdarknet/yolov3.weights
+ADD api/libdarknet/yolov3.weights /app/api/libdarknet/yolov3.weights
 
 COPY api/ /app/api
 COPY api/data/ /app/data
@@ -30,10 +30,6 @@ RUN echo '\n\n\nBuilding without GPU support...\n' && \
     ldd libdarknet.so && \
     echo '________________________' && \
     cp -v libdarknet.so /app/api/libdarknet/
-
-RUN git clone --depth 1 https://github.com/snobu/falcon
-WORKDIR falcon
-RUN python -m easy_install .
 
 WORKDIR /app/api
 CMD nginx -c /app/nginx.conf && gunicorn app:api -b 127.0.0.1
