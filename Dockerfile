@@ -14,6 +14,7 @@ COPY frontend/ /app/frontend
 COPY bootstrap.sh /app/
 COPY LICENSE /app/
 COPY Makefile.patch /app/
+COPY nginx.conf /app/
 
 RUN git clone --depth 1 https://github.com/pjreddie/darknet
 WORKDIR darknet
