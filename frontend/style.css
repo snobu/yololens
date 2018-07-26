@@ -185,3 +185,8 @@ img {
   }
 }
 
+.error {
+  background-color: darkred;
+  padding: 6px;
+  margin-top: 20px
+}

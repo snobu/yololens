@@ -39,8 +39,8 @@
       <button @click="removeImage">Try again!</button>
     </section>
 
-    <section id="apiError">
-      <p style="color: red" v-for="error in apiError">{{ error }}</p>
+    <section v-if="Object.keys(apiError).length !== 0" class="error">
+      <p style="color: #fff" v-for="error in apiError">{{ error }}</p>
     </section>
 
  </aside>
