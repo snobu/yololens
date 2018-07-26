@@ -9,7 +9,7 @@ spec:
     - name: yololens
       image: adcaline/yololens
       ports:
-        - containerPort: 8000
+        - containerPort: 80
       volumeMounts:
         - name: nvidia
           mountPath: /usr/local/nvidia
@@ -38,4 +38,4 @@ spec:
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8000
+      targetPort: 80
