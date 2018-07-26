@@ -67,7 +67,9 @@ new Vue({
           console.log('response.status = ', response.status, response.statusText);
         }
       }).catch(function (error) {
-        _this.apiError = error;
+        _this.apiError.status = error.response.status;
+        _this.apiError.statusText = error.response.statusText;
+        _this.apiError.message = error.response.message;
       });
     },
     
@@ -103,6 +105,7 @@ new Vue({
       this.noResponse = false;
       this.thing = {};
       this.predictions = {};
+      this.apiError = {};
     }
   }
 });
