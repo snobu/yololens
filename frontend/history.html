@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+<link href="https://fonts.googleapis.com/css?family=Lato:300,600,900" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="style.css">
+
+<div id="app">
+  <main>
+    <button style="font-size: 14px" v-on:click="getHistory">Get History</button>
+
+    <div class="error" v-if="apiError">
+        <pre style="color: #fff" v-for="error in apiError">{{ error }}</pre>
+    </div>
+    
+    <div id="grid">
+      <pre v-for="(value, key) in history">{{ key }}: {{ value }}</pre>
+    </div>
+
+  </main>
+</div>
+
+<script src='https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/vue-spinner@1.0.3/dist/vue-spinner.min.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vue/2.5.16/vue.js'></script>
+<script src='app.js'></script>
+
+</html>

@@ -1,5 +1,6 @@
 let PacmanLoader = VueSpinner.PacmanLoader;
 let postUrl = '/api/images';
+let historyUrl = '/api/cosmos';
 
 Vue.component("child", {
   props: {
@@ -27,13 +28,51 @@ new Vue({
       spinnerColor: '#fff',
       thing: {},
       predictions: {},
-      image: "",
+      image: '',
       noResponse: false,
-      apiError: {}
+      apiError: {},
+      history: []
     };
   },
 
   methods: {
+    getHistory: function getHistory() {
+      this.apiError.something = 'something';
+      console.log("Texting Cosmos for history...");
+      try {
+        axios({
+          method: "get",
+          url: historyUrl,
+          timeout: 15000
+        }).then(function (response) {
+          if (response.status == 200 | response.status == 201 | response.status == 202) {
+            this.history = response.data;
+          }
+        }).catch(function (error) {
+          if (error.response) {
+            this.apiError.status = error.response.status;
+            this.apiError.statusText = error.response.statusText;
+            console.error(error.response.status, error.response.statusText);
+          }
+          else {
+            this.apiError.message = error;
+            console.error(error);
+          }
+        });
+      }
+      catch (error) {
+        if (error.response) {
+          this.apiError.status = error.response.status;
+          this.apiError.statusText = error.response.statusText;
+          console.error(error.response.status, error.response.statusText);
+        }
+        else {
+          this.apiError.message = error;
+          console.error(error);
+        }
+      }
+    },
+
     detect: function detect() {
       var _this = this;
 
@@ -48,31 +87,46 @@ new Vue({
         contentType = this.type;
       }
       
-      axios({
-        method: "post",
-        url: postUrl,
-        data: data,
-        timeout: 180000,
-        headers: {
-          "Content-Type": contentType
-        }
-      }).then(function (response) {
-        if (response.status == 200 | response.status == 201 | response.status == 202) {
-          _this.thing = { img: response.headers.location };
-          _this.predictions = response.data;
+      try {
+        axios({
+          method: "post",
+          url: postUrl,
+          data: data,
+          timeout: 180000,
+          headers: {
+            "Content-Type": contentType
+          }
+        }).then(function (response) {
+          if (response.status == 200 | response.status == 201 | response.status == 202) {
+            _this.thing = { img: response.headers.location };
+            _this.predictions = response.data;
+          }
+          else {
+            console.error('Something has gone awfully bad.');
+            console.log('response.headers.location = ', response.headers.location);
+            console.log('response.status = ', response.status, response.statusText);
+          }
+        }).catch(function (error) {
+          if (error.response) {
+            _this.apiError.status = error.response.status;
+            _this.apiError.statusText = error.response.statusText;
+          }
+          else {
+            _this.apiError.message = error;
+            console.error(error);
+          }
+        });
+      }
+      catch (error) {
+        if (error.response) {
+          _this.apiError.status = error.response.status;
+          _this.apiError.statusText = error.response.statusText;
         }
         else {
-          console.error('Something has gone awfully bad.');
-          console.log('response.headers.location = ', response.headers.location);
-          console.log('response.status = ', response.status, response.statusText);
+          _this.apiError.message = error;
+          console.error(error);
         }
-      }).catch(function (error) {
-        if (error.response) {
-          _this.apiError.status = error.response.status
-          _this.apiError.statusText = error.response.statusText
-          _this.apiError.message = error.response.message
-        }
-      });
+      }
     },
     
     fileUpload: function fileUpload(e) {
