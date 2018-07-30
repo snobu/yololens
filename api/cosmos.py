@@ -25,9 +25,8 @@ class History:
         self.collection_link = self.database_link + '/colls/' + self.COSMOS_COLLECTION
 
     def on_get(self, req, resp):
-        docs = self.cosmos.QueryDocuments(
-            self.collection_link, 'SELECT c.id, c.probability FROM c')
-        doclist = list(docs)
-        j = json.dumps(doclist)
+        query_str = 'SELECT c.id, c.probability FROM c'
+        query_result = self.cosmos.QueryDocuments(self.collection_link, query_str)
+        docs = json.dumps(list(query_result))
         resp.status = falcon.HTTP_200
-        resp.body = j
+        resp.body = docs
