@@ -7,6 +7,9 @@ RUN apt-get update && \
     apt-get install -y python3-dev git nginx
 
 RUN pip install setuptools colorama simplejson falcon gunicorn
+RUN git clone --depth 1 https://github.com/snobu/pydocumentdb && \
+    cd pydocumentdb && python -m easy_install .
+
 
 ### ADD http://yololens.blob.core.windows.net/weights/yolov3.weights \
 ###    /app/api/libdarknet/yolov3.weights

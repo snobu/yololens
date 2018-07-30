@@ -18,6 +18,27 @@ spec:
       resources:
         limits:
           alpha.kubernetes.io/nvidia-gpu: 1
+      env:
+        - name: COSMOS_HOST
+          valueFrom:
+            secretKeyRef:
+              name: cosmosdb
+              key: host
+        - name: COSMOS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: cosmosdb
+              key: key
+        - name: COSMOS_DATABASE
+          valueFrom:
+            secretKeyRef:
+              name: cosmosdb
+              key: database
+        - name: COSMOS_COLLECTION
+          valueFrom:
+            secretKeyRef:
+              name: cosmosdb
+              key: collection
   volumes:
     - name: nvidia
       hostPath:
