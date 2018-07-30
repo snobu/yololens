@@ -4,8 +4,8 @@ RUN apt update -qq && \
     apt install -qqy python3 python3-pip python3-dev curl git nginx && \
     pip3 install setuptools colorama simplejson falcon gunicorn pydocumentdb
 
-RUN git clone --depth 1 https://github.com/snobu/pydocumentdb && \
-    cd pydocumentdb && python3 -m easy_install .
+RUN git clone --depth 1 https://github.com/snobu/azure-documentdb-python && \
+    cd azure-documentdb-python && python3 -m easy_install .
 
 RUN mkdir -p /app
 RUN mkdir -p /app/frontend/results /app/frontend/uploads
