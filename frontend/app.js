@@ -38,7 +38,6 @@ new Vue({
   methods: {
     getHistory: function getHistory() {
       var _this = this;
-      _this.apiError.something = 'something';
       console.log("Texting Cosmos for history...");
       try {
         axios({
