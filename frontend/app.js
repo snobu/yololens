@@ -37,7 +37,8 @@ new Vue({
 
   methods: {
     getHistory: function getHistory() {
-      this.apiError.something = 'something';
+      var _this = this;
+      _this.apiError.something = 'something';
       console.log("Texting Cosmos for history...");
       try {
         axios({
@@ -46,28 +47,28 @@ new Vue({
           timeout: 15000
         }).then(function (response) {
           if (response.status == 200 | response.status == 201 | response.status == 202) {
-            this.history = response.data;
+            _this.history = response.data;
           }
         }).catch(function (error) {
           if (error.response) {
-            this.apiError.status = error.response.status;
-            this.apiError.statusText = error.response.statusText;
+            _this.apiError.status = error.response.status;
+            _this.apiError.statusText = error.response.statusText;
             console.error(error.response.status, error.response.statusText);
           }
           else {
-            this.apiError.message = error;
+            _this.apiError.message = error;
             console.error(error);
           }
         });
       }
       catch (error) {
         if (error.response) {
-          this.apiError.status = error.response.status;
-          this.apiError.statusText = error.response.statusText;
+          _this.apiError.status = error.response.status;
+          _this.apiError.statusText = error.response.statusText;
           console.error(error.response.status, error.response.statusText);
         }
         else {
-          this.apiError.message = error;
+          _this.apiError.message = error;
           console.error(error);
         }
       }
