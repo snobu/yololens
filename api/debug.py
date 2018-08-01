@@ -2,5 +2,6 @@ import os
 
 
 class YoloDebug:
+    DEBUG = 0
     if 'DEBUG' in os.environ:
-        DEBUG = 1 if os.environ['DEBUG'] == 1 else 0
+        if os.environ['DEBUG'] == 1: DEBUG = 1
