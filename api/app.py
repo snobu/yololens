@@ -5,6 +5,7 @@ import falcon
 from images import Resource
 from cosmos import History
 
+
 api = application = falcon.API()
 
 images = Resource(None)

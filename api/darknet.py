@@ -1,9 +1,9 @@
 from ctypes import *
 import random
 from colorama import Fore, Back, Style
+from debug import YoloDebug
 
-DEBUG = 0
-DEBUG_COLOR = Fore.YELLOW
+DEBUG = YoloDebug.DEBUG
 
 def sample(probs):
     s = sum(probs)
@@ -153,26 +153,26 @@ def detect(net, meta, image, outfile, thresh=.5, hier_thresh=.5, nms=.45):
     im = load_image(image, 0, 0)
     pnum = pointer(c_int(0))
     predict_image(net, im)
-    if DEBUG: print(DEBUG_COLOR + '[DEBUG] Image dimensions: ', im.w, im.h)
+    if DEBUG: print('[DEBUG] Image dimensions: {w}, {h}'.format(w=im.w, h=im.h), flush=True)
     dets = get_network_boxes(net, im.w, im.h, thresh, hier_thresh, pnum, 1, pnum)
     num = pnum[0]
-    if (nms): do_nms_obj(dets, num, meta.classes, nms);
-
-    # SEE THIS
+    if (nms): do_nms_obj(dets, num, meta.classes, nms)
+    
+    # Hopelessly inspired by -
     # https://github.com/xueeinstein/darknet-vis/blob/master/python/darknet.py
 
-    # draw bounding boxes
-    masks = POINTER(POINTER(c_float))()
-    # alphabet = load_alphabet_with_path(b'../data/labels')
-    # load_alphabet() defaults to data/labels
-    alphabet = load_alphabet()
+    alphabet = load_alphabet() # defaults to path: data/labels
     names = meta.names
     classes = meta.classes
-    if DEBUG: print(DEBUG_COLOR + '[DEBUG] Drawing boxes...', Style.RESET_ALL)
-    if DEBUG: print(DEBUG_COLOR + '[DEBUG] Args to draw_detections():\n', \
-        im, dets, num, thresh, names, alphabet, classes)
+
+    if DEBUG:
+        print('[DEBUG] Args to draw_detections():\n' +
+            f'{im}, {dets}, {num}, {thresh}, {names}, {alphabet}, {classes}', flush=True)
+        print('[DEBUG] Drawing boxes...', flush=True)
+
     draw_detections(im, dets, num, thresh, names, alphabet, classes)
-    if DEBUG: print(DEBUG_COLOR + '[DEBUG] Saving image...' + Style.RESET_ALL)
+    
+    if DEBUG: print('[DEBUG] Saving image...', flush=True)
     save_image_png(im, bytes(outfile, 'ascii'))
 
     res = []

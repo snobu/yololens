@@ -1,9 +1,12 @@
 import sys, os
 import darknet as dn
 import simplejson as json
+from debug import YoloDebug
+
+DEBUG = YoloDebug.DEBUG
 
 def detect(filename, outfile):
-    print('detect() has been called.')
+    print('detect() has been called.', flush=True)
     result = dn.detect(net, meta, filename, outfile)
     return json.dumps(result)
 
