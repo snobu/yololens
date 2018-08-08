@@ -1,11 +1,11 @@
 FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04
 
 RUN apt update -qq && \
-    apt install -qqy python3 python3-pip python3-dev curl git nginx && \
-    pip3 install setuptools colorama simplejson falcon gunicorn pydocumentdb
+    apt install -qqy python3.6 python3.6-pip python3.6-dev curl git nginx && \
+    pip3 install setuptools colorama simplejson falcon gunicorn
 
 RUN git clone --depth 1 https://github.com/snobu/azure-documentdb-python && \
-    cd azure-documentdb-python && python3 -m easy_install .
+    cd azure-documentdb-python && python3.6 -m easy_install .
 
 RUN mkdir -p /app
 RUN mkdir -p /app/frontend/results /app/frontend/uploads
@@ -14,6 +14,7 @@ COPY api/ /app/api
 COPY api/data/ /app/data
 COPY api/libdarknet/ /app/api/libdarknet
 COPY frontend/ /app/frontend
+COPY frontend-vnext/dist /app/frontend-vnext
 COPY bootstrap.sh /app/
 COPY LICENSE /app/
 COPY Makefile.patch /app/
