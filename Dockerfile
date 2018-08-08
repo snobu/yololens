@@ -1,6 +1,8 @@
 FROM nvidia/cuda:8.0-cudnn7-devel-ubuntu16.04
 
-RUN add-apt-repository ppa:jonathonf/python-3.6 && \
+RUN apt update -qq && \
+    apt install -qqy software-properties-common && \
+    add-apt-repository ppa:jonathonf/python-3.6 && \
     apt update -qq && \
     apt install -qqy python3.6 python3.6-dev curl git nginx
 
