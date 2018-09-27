@@ -15,3 +15,8 @@ Docker Hub: https://hub.docker.com/r/adcaline/yololens/
 
 Builds with GPU support (CUDA 8.0, Tesla M60 and higher, could work on K80 as well).
 GPU nodes in AKS can't yet do CUDA 9.0+ (stale/stable? drivers).
+
+## Live Demo
+
+The demo cluster does not have GPU nodes, inferring will be slow (10-20 seconds) -
+https://yololens.aks.snobu.org
