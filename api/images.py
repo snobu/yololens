@@ -63,12 +63,12 @@ class Resource(object):
 
         if DEBUG: print('[DEBUG] Running image through darknet...', flush=True)
         if DEBUG: print('[DEBUG] image_path =', str(image_path), flush=True)
-        if DEBUG: print('[DEBUG] results/' + str(session_id) + '.png', flush=True)
+        if DEBUG: print('[DEBUG] results/' + str(session_id) + '.jpg', flush=True)
         results = detector.detect(bytes(image_path, 'ascii'),
                                   self._results_path + '/{session_id}'.format(session_id=session_id))
 
         resp.status = falcon.HTTP_200
-        resp.location = '/results/' + str(session_id) + '.png'
+        resp.location = '/results/' + str(session_id) + '.jpg'
         if DEBUG:
             print('[DEBUG] Results are in:', flush=True)
             print(results, flush=True)

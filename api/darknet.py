@@ -67,10 +67,6 @@ save_image = lib.save_image
 save_image.argtypes = [IMAGE, c_char_p]
 save_image.restype = c_int
 
-save_image_png = lib.save_image_png
-save_image_png.argtypes = [IMAGE, c_char_p]
-save_image_png.restype = c_int
-
 draw_detections = lib.draw_detections
 draw_detections.argtypes = [
     IMAGE,
@@ -173,7 +169,7 @@ def detect(net, meta, image, outfile, thresh=.5, hier_thresh=.5, nms=.45):
     draw_detections(im, dets, num, thresh, names, alphabet, classes)
     
     if DEBUG: print('[DEBUG] Saving image...', flush=True)
-    save_image_png(im, bytes(outfile, 'ascii'))
+    save_image(im, bytes(outfile, 'ascii'))
 
     res = []
     for j in range(num):
