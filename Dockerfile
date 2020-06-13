@@ -21,7 +21,6 @@ COPY api/ /app/api
 COPY api/data/ /app/data
 COPY api/libdarknet/ /app/api/libdarknet
 COPY frontend/ /app/frontend
-# COPY frontend-vnext/dist /app/frontend-vnext
 COPY bootstrap.sh /app/
 COPY LICENSE /app/
 COPY Makefile.patch /app/
