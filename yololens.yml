@@ -17,7 +17,7 @@ spec:
           mountPath: /mnt/weights
       resources:
         limits:
-          alpha.kubernetes.io/nvidia-gpu: 1
+          nvidia.com/gpu: 1
       env:
         - name: COSMOS_HOST
           valueFrom:
