@@ -10,5 +10,7 @@ fi
 
 ln -vsf /mnt/weights/yolov3.weights /app/api/libdarknet/yolov3.weights
 
+sleep 900000000000
+
 echo Staring nginx and gunicorn...
 nginx -c /app/nginx.conf && gunicorn app:api -b 127.0.0.1
