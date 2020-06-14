@@ -1,23 +1,22 @@
 kind: Pod
 apiVersion: v1
 metadata:
-  name: yololens
+  name: yololens-nogpu
   labels:
-    app: yololens
+    app: yololens-nogpu
 spec:
+  nodeSelector:
+    agentpool: cpupool
   containers:
-    - name: yololens
-      image: adcaline/yololens
+    - name: yololens-nogpu
+      image: adcaline/yololens-nogpu
       ports:
         - containerPort: 80
       volumeMounts:
-        - name: nvidia
-          mountPath: /usr/local/nvidia
         - name: weights
           mountPath: /mnt/weights
       resources:
         limits:
-          nvidia.com/gpu: 1
       env:
         - name: MY_NODE_NAME
           valueFrom:
@@ -48,22 +47,19 @@ spec:
               name: cosmosdb
               key: collection
   volumes:
-    - name: nvidia
-      hostPath:
-        path: /usr/local/nvidia
     - name: weights
       persistentVolumeClaim:
-        claimName: yolo-weights-disk
+        claimName: yolo-weights-disk-nogpu
   restartPolicy: OnFailure
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: yololens
+  name: yololens-nogpu
 spec:
   type: LoadBalancer
   selector:
-    app: yololens
+    app: yololens-nogpu
   ports:
     - protocol: TCP
       port: 80
