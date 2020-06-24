@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: yololens-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: "9m"
+spec:
+  rules:
+  - host: gpu.yololens.snobu.org
+    http:
+      paths:
+      - backend:
+          serviceName: yololens
+          servicePort: 80
+        path: /
+  - host: nogpu.yololens.snobu.org
+    http:
+      paths:
+      - backend:
+          serviceName: yololens-nogpu
+          servicePort: 80
+        path: /
+  tls:
+  - secretName: yololens-tls
+    hosts:
+      - gpu.yololens.snobu.org
+      - nogpu.yololens.snobu.org
