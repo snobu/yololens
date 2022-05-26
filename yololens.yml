@@ -1,67 +1,77 @@
-kind: Pod
-apiVersion: v1
+kind: Deployment
+apiVersion: apps/v1
 metadata:
   name: yololens
   labels:
     app: yololens
 spec:
-  containers:
-    - name: yololens
-      image: adcaline/yololens
-      ports:
-        - containerPort: 80
-      volumeMounts:
+  selector:
+    matchLabels:
+      app: yololens
+  template:
+    metadata:
+      labels:
+        app: yololens
+    spec:
+      nodeSelector:
+        agentpool: gpupool
+      containers:
+        - name: yololens
+          image: adcaline/yololens
+          ports:
+            - containerPort: 80
+          volumeMounts:
+            - name: nvidia
+              mountPath: /usr/local/nvidia
+            - name: weights
+              mountPath: /mnt/weights
+          resources:
+            limits:
+              nvidia.com/gpu: 1
+          env:
+            - name: MY_NODE_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: spec.nodeName
+            - name: MY_POD_NAME
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+            - name: COSMOS_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: cosmosdb
+                  key: host
+            - name: COSMOS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: cosmosdb
+                  key: key
+            - name: COSMOS_DATABASE
+              valueFrom:
+                secretKeyRef:
+                  name: cosmosdb
+                  key: database
+            - name: COSMOS_COLLECTION
+              valueFrom:
+                secretKeyRef:
+                  name: cosmosdb
+                  key: collection
+      volumes:
         - name: nvidia
-          mountPath: /usr/local/nvidia
+          hostPath:
+            path: /usr/local/nvidia
         - name: weights
-          mountPath: /mnt/weights
-      resources:
-        limits:
-          nvidia.com/gpu: 1
-      env:
-        - name: MY_NODE_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: spec.nodeName
-        - name: MY_POD_NAME
-          valueFrom:
-            fieldRef:
-              fieldPath: metadata.name
-        - name: COSMOS_HOST
-          valueFrom:
-            secretKeyRef:
-              name: cosmosdb
-              key: host
-        - name: COSMOS_KEY
-          valueFrom:
-            secretKeyRef:
-              name: cosmosdb
-              key: key
-        - name: COSMOS_DATABASE
-          valueFrom:
-            secretKeyRef:
-              name: cosmosdb
-              key: database
-        - name: COSMOS_COLLECTION
-          valueFrom:
-            secretKeyRef:
-              name: cosmosdb
-              key: collection
-  volumes:
-    - name: nvidia
-      hostPath:
-        path: /usr/local/nvidia
-    - name: weights
-      persistentVolumeClaim:
-        claimName: yolo-weights-disk
-  restartPolicy: OnFailure
+          persistentVolumeClaim:
+            claimName: yolo-weights-disk
+      restartPolicy: Always
 ---
 kind: Service
 apiVersion: v1
 metadata:
   name: yololens
 spec:
-  type: LoadBalancer
+  type: ClusterIP
   selector:
     app: yololens
   ports:
