@@ -5,7 +5,7 @@ WEIGHTS=/mnt/weights/yolov3.weights
 if [ ! -f $WEIGHTS ]; then
    echo "File $WEIGHTS not found. Downloading from blob storage..."
    curl -Ss -o $WEIGHTS \
-        http://yololens.blob.core.windows.net/weights/yolov3.weights
+        https://yololens.blob.core.windows.net/weights/yolov3.weights
 fi
 
 ln -vsf /mnt/weights/yolov3.weights /app/api/libdarknet/yolov3.weights
